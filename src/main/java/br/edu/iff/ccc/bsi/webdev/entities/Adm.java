@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table()
+@Table(name = "Adm_tb")
 public class Adm extends Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,6 @@ public class Adm extends Person implements Serializable {
 
 	public Adm(String name, String email, String password, String phone) {
 		super(name, email, password, phone);
-		// TODO Auto-generated constructor stub
 	}
 	
 }
