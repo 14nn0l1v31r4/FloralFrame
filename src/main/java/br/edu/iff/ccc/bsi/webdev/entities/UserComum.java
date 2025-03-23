@@ -2,6 +2,8 @@ package br.edu.iff.ccc.bsi.webdev.entities;
 
 import java.io.Serializable;
 
+import org.springframework.data.jpa.repository.Query;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,14 +17,14 @@ public class UserComum extends Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "nome", nullable = false, length = 100)
-    private String nome;
+	@Column(name = "name", nullable = false, length = 100)
+    private String name;
 
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(name = "email", unique = true, nullable = false, length = 50)
     private String email;
 
     @Column(name = "phone")
@@ -44,7 +46,9 @@ public class UserComum extends Person implements Serializable {
 		this.id = id;
 	}
 	
-	
+	public UserComum() {
+		super();
+	}
  
 	
 

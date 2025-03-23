@@ -1,16 +1,16 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import br.edu.iff.ccc.bsi.webdev.enums.CategoryPost;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,30 +30,65 @@ public class Post implements Serializable{
 	private String body;
 	
 	@Column(name = "date")
-	private Date date;
+	private LocalDate date;
 	
+    @Enumerated(EnumType.STRING)
+	private CategoryPost category;
+    
+    private boolean like_bool;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-	private CategoryPostEntity category;
-
-	public Post(Long id, String title, String body, Date date, CategoryPostEntity category) {
+	public Post(String title, String body, LocalDate date, CategoryPost category) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.body = body;
 		this.date = date;
 		this.category = category;
 	}
 	
-	public Post(String title, String body, Date date, CategoryPostEntity category) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.body = body;
+	
+	
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+
+
+
+	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+
+
+
+	public CategoryPost getCategory() {
+		return category;
+	}
+
+
+
+
+	public void setCategory(CategoryPost category) {
 		this.category = category;
 	}
+
+
+
+
+	public boolean isLike_bool() {
+		return like_bool;
+	}
+
+
+
+
+	public void setLike_bool(boolean like_bool) {
+		this.like_bool = like_bool;
+	}
+
+
+
 
 	public String getTitle() {
 		return title;

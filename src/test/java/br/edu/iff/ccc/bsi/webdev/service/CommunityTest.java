@@ -47,6 +47,7 @@ public class CommunityTest {
         assertEquals("Cominidade", result.getName());
         assertEquals("", result.getDescription());
         verify(communityRepo).findById(1L); 
+        verify(communityRepo).findByName("Comunidade"); 
         
     }
 

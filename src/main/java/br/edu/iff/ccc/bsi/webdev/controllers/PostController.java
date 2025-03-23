@@ -1,34 +1,33 @@
 package br.edu.iff.ccc.bsi.webdev.controllers;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.iff.ccc.bsi.webdev.entities.CategoryPostEntity;
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
-import br.edu.iff.ccc.bsi.webdev.repository.CategoryPostRepository;
+import br.edu.iff.ccc.bsi.webdev.enums.CategoryPost;
 import br.edu.iff.ccc.bsi.webdev.services.PostService;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("api/v1/post")
 public class PostController {
 	
 	@Autowired
     private PostService postService;
 	
-	@Autowired
-	private CategoryPostRepository categoryPostRepository;
 
     // Endpoint para criar um novo post
-    @PostMapping
 
 
     // Endpoint para buscar um post por ID
@@ -40,16 +39,27 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public Post createPost(@RequestParam String title, 
                            @RequestParam String body, 
                            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-                           @RequestParam Long categoryId) {
-        // Buscar a categoria no banco
-        CategoryPostEntity category = categoryPostRepository.findById(categoryId)
-            .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada"));
-
-        return postService.createPost(1L, title, body, Date.valueOf(date), category);
+                           @RequestParam CategoryPost category) {
+        return postService.createPost(title, body, LocalDate.now(), CategoryPost.AQUATICA);
+    }
+    
+    @GetMapping("/all")
+    public List<Post> getAllPosts() {
+        return postService.findAll();
+    }
+    
+    @PutMapping("/update/{id}")
+    public Post updatePost(@PathVariable Long id, @RequestBody Post postDetails) {
+        return postService.update(id, postDetails);
+    }
+    
+    @DeleteMapping("/delete/{id}")
+    public void deletePost(@PathVariable Long id) {
+        postService.deleteById(id);
     }
     
 }

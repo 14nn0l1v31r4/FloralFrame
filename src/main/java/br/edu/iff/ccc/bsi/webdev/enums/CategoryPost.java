@@ -10,13 +10,16 @@ public enum CategoryPost {
     TREPADEIRA(7, "Planta que cresce apoiada em estruturas."),
     NATIVA(8, "Planta nativa de um ecossistema específico.");
 
-    private final int code;
-    private final String description;
+    private  int code;
+    private String description;
+    private int type;
 
     CategoryPost(int code, String description) {
         this.code = code;
         this.description = description;
     }
+    
+    
 
     public int getCodigo() {
         return code;
