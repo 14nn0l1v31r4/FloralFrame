@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Community_tb")
@@ -16,9 +17,11 @@ public class Community implements Serializable {
 	private Long id;
 	
 	@Column
+	@NotNull(message = "Name cannot be null")
 	private String name;
 	
 	@Column
+	@NotNull(message = "Description cannot be null")
 	private String description;
 	
 	@Column

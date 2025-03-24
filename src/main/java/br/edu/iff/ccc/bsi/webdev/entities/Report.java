@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Report implements Serializable{
@@ -23,13 +24,16 @@ public class Report implements Serializable{
 
     @ManyToOne // Relacionamento: um usuário pode fazer várias denúncias
     @JoinColumn(name = "reporter_id", nullable = false)
+    @NotNull(message = "User cannot be null")
     private UserComum reporter; // Quem fez a denúncia
 
     @ManyToOne // Relacionamento: um post pode ser denunciado várias vezes
     @JoinColumn(name = "post_id", nullable = false)
+    @NotNull(message = "Post ID cannot be null")
     private Post post; // Post denunciado
 
     @Column(nullable = false)
+    @NotNull(message = "Reason cannot be null")
     private String reason; // Motivo da denúncia
 
     @Column(nullable = false)

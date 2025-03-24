@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Post_tb")
@@ -24,9 +25,11 @@ public class Post implements Serializable{
 	private Long id;
 	
 	@Column(name = "title")
+	@NotNull(message = "Title cannot be null")
 	private String title;
 	
 	@Column(name = "body")
+	@NotNull(message = "Body cannot be null")
 	private String body;
 	
 	@Column(name = "date")
