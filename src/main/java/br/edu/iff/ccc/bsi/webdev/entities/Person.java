@@ -1,5 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +9,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class Person {
+public abstract class Person implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,6 +63,8 @@ public abstract class Person {
 		this.email = email;
 	}
 	
-	
+	public Person() {
+		
+	}
 
 }

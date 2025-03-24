@@ -47,6 +47,8 @@ public class AdmTest {
         assertEquals("Fulano", result.getName());
         assertEquals("", result.getEmail());
         verify(admRepo).findById(1L); 
+        verify(admRepo).findAll(); 
+        
         
     }
 

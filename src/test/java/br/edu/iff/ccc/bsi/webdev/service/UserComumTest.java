@@ -49,6 +49,7 @@ public class UserComumTest {
         assertEquals("Fulano", result.getName());
         assertEquals("", result.getEmail());
         verify(userRepo).findById(1L); 
+        verify(userRepo).findByName("fulano"); 
         
     }
 }
