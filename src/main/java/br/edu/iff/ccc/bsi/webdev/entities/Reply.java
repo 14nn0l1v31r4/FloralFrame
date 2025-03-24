@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Reply extends Interaction implements Serializable{
@@ -19,6 +20,7 @@ public class Reply extends Interaction implements Serializable{
 	private Long id;
 	
 	@Column
+	@NotNull(message = "Content cannot be null")
 	private String content;
 	
 	@Column
