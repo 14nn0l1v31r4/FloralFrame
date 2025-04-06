@@ -35,7 +35,6 @@ public class UserComumController {
     @Autowired
     private UserComumService userComumService;
     
-    @Autowired
     private UserComumDTO userDTO;
 
     @PostMapping("/create")
