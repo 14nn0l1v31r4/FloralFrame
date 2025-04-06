@@ -25,9 +25,9 @@ public class PostService {
 		return post;
 	}
 	
-	public Post createPost(String title, String body, LocalDate date, CategoryPost category) {
+	public Post createPost(String title, String body, CategoryPost category) {
 		
-		 Post post = new Post(title, body, date, category);
+		 Post post = new Post(title, body, category);
 	        return postRepo.save(post);
 	}
 	

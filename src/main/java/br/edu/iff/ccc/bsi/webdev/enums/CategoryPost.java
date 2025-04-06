@@ -1,6 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.enums;
 
-public enum CategoryPost {
+public enum CategoryPost { 
 	ORNAMENTAL(1, "Planta usada para fins decorativos."),
     FRUTIFERA(2, "Planta que produz frutos comestíveis."),
     MEDICINAL(3, "Planta utilizada para fins terapêuticos."),
