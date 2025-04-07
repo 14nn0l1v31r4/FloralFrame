@@ -38,7 +38,7 @@ public class UserComumTest {
 	@DisplayName("Busca por Id em UserService com sucesso.")
     void testFindById() {
         
-         UserComum mockedUser = new UserComum("fulano", "fulano@mail.com", "123", "2127878", 1L);
+         UserComum mockedUser = new UserComum("fulano", "fulano@mail.com", "123", "2127878");
          when(userRepo.findById(1L)).thenReturn(Optional.of(mockedUser));
         
         // 

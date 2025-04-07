@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Report implements Serializable{
@@ -37,6 +38,7 @@ public class Report implements Serializable{
     private String reason; // Motivo da denúncia
 
     @Column(nullable = false)
+    @PastOrPresent(message = "Date cannot be future")
     private LocalDate reportDate;
 
     public Report() {}
@@ -55,6 +57,27 @@ public class Report implements Serializable{
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public UserComum getReporter() {
+		return reporter;
+	}
+
+	public void setReporter(UserComum reporter) {
+		this.reporter = reporter;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
     
     
 

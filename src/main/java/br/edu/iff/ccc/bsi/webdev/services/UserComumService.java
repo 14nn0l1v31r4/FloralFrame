@@ -34,9 +34,6 @@ public class UserComumService{
 	        return userRepo.save(user);
 	    }
 	 
-	 public List<UserComum> findByName(){
-		 return userRepo.findByName(null);
-	 }
 	 
 	 public void deleteById(Long id) {
 	        if (!userRepo.existsById(id)) {
@@ -48,6 +45,10 @@ public class UserComumService{
 	 public List<UserComum> findByName(String name) {
 		    return userRepo.findByName(name);
 		}
+	 
+	 public UserComum findByEmail(String email){
+		 return userRepo.findByEmail(email);
+	 }
 	 
 	 public List<UserComum> findAll() {
 		    return userRepo.findAll();

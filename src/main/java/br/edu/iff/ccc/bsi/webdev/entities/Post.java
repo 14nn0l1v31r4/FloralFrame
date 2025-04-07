@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name = "Post_tb")
@@ -33,29 +34,40 @@ public class Post implements Serializable{
 	private String body;
 	
 	@Column(name = "date")
+	@PastOrPresent(message = "Date cannot be future")
 	private LocalDate date;
 	
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Category cannot be null")
 	private CategoryPost category;
+    
     
     private boolean like_bool;
 
+	public Post(String title, String body, CategoryPost category) {
+		super();
+		this.title = title;
+		this.body = body;
+		this.date = LocalDate.now();
+		this.category = category;
+	}
+	
 	public Post(String title, String body, LocalDate date, CategoryPost category) {
 		super();
 		this.title = title;
 		this.body = body;
-		this.date = date;
+		this.date = LocalDate.now();
 		this.category = category;
 	}
-	
-	
-	
+	public Post() {
+
+	}
 
 	public LocalDate getDate() {
 		return date;
 	}
 
-
+	
 
 
 	public void setDate(LocalDate date) {
@@ -108,6 +120,16 @@ public class Post implements Serializable{
 	public void setBody(String body) {
 		this.body = body;
 	}
+
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
 	
 	
 	

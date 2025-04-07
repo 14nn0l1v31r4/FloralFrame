@@ -1,6 +1,7 @@
 package br.edu.iff.ccc.bsi.webdev.services;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Reply;
+import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
 import br.edu.iff.ccc.bsi.webdev.repository.ReplyRepository;
 
 @Service
@@ -32,6 +34,10 @@ public class ReplyService {
     public Reply save(Reply reply) {
         return replyRepo.save(reply);
     }
+    
+    public List<Reply> findAll() {
+	    return replyRepo.findAll();
+	}
     
     public Reply update(Long id, Reply replyDetails) {
         Reply reply = findById(id);

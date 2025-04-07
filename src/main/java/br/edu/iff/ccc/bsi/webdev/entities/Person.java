@@ -23,11 +23,14 @@ public abstract class Person implements Serializable {
 	protected String phone;
 	
 	public Person(String name, String email, String password, String phone) {
-		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.phone = phone;
+	}
+	
+	public Person() {
+		super();
 	}
 
 	@Override
@@ -62,9 +65,30 @@ public abstract class Person implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public Person() {
-		
+
+	public Long getId() {
+		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	
 }
