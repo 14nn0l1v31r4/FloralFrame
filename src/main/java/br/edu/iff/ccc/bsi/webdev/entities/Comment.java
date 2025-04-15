@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Comment extends Interaction implements Serializable{
@@ -24,9 +25,13 @@ public class Comment extends Interaction implements Serializable{
 	
 	@Column
 	private LocalDate createdAt;
+	
+    @JoinColumn(name = "user_id")
+    private Long userIdComment;
 
-	public Comment(boolean like, LocalDate createdAt, String content) {
+	public Comment(Long userIdComment, boolean like, LocalDate createdAt, String content) {
 		super(like, createdAt);
+		this.userIdComment = userIdComment;
 		this.content = content;
 	}
 
@@ -60,4 +65,8 @@ public class Comment extends Interaction implements Serializable{
 		
 	}
 
+	
+	public Long getUserIdComment() {
+		return userIdComment;
+	}
 }

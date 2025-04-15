@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
 import br.edu.iff.ccc.bsi.webdev.entities.Report;
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
+import br.edu.iff.ccc.bsi.webdev.exception.ReportNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.ReportRepository;
 
 @Service
@@ -20,7 +21,7 @@ public class ReportService {
 
 	
 	public Report findById(Long id){
-		Report post = reportRepo.findById(id).orElseThrow(null);
+		Report post = reportRepo.findById(id).orElseThrow(() -> new ReportNotFoundException(id));
 		return post;
 	}
 	
@@ -39,6 +40,9 @@ public class ReportService {
     }
 	
 	public Report update(Long id, Report reportDetails) {
+		if (!reportRepo.existsById(id)) {
+			throw new ReportNotFoundException(id);
+		}
         Report report = findById(id);
         report.setReason(reportDetails.getReason());
         return reportRepo.save(report);
@@ -46,7 +50,7 @@ public class ReportService {
 
 	public void deleteById(Long id) {
         if (!reportRepo.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Relatório não encontrado para exclusão");
+            throw new ReportNotFoundException(id);
         }
         reportRepo.deleteById(id);
     }

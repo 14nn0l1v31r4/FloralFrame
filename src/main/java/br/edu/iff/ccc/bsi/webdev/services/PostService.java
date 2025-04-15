@@ -1,6 +1,5 @@
 package br.edu.iff.ccc.bsi.webdev.services;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
 import br.edu.iff.ccc.bsi.webdev.enums.CategoryPost;
+import br.edu.iff.ccc.bsi.webdev.exception.PostNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.PostRepository;
 
 @Service
@@ -21,13 +21,13 @@ public class PostService {
 
 	
 	public Post findById(Long id){
-		Post post = postRepo.findById(id).orElseThrow(null);
+		Post post = postRepo.findById(id).orElseThrow(() -> new PostNotFoundException(id));
 		return post;
 	}
 	
-	public Post createPost(String title, String body, CategoryPost category) {
+	public Post createPost(Long userId, String title, String body, CategoryPost category) {
 		
-		 Post post = new Post(title, body, category);
+		 Post post = new Post(userId, title, body, category);
 	        return postRepo.save(post);
 	}
 	
@@ -49,6 +49,9 @@ public class PostService {
     }
 	
 	public Post update(Long id, Post postDetails) {
+		if (!postRepo.existsById(id)) {
+			throw new PostNotFoundException(id);
+		}
         Post post = findById(id);
         post.setTitle(postDetails.getTitle());
         post.setBody(postDetails.getBody());
@@ -59,7 +62,7 @@ public class PostService {
 	
 	public void deleteById(Long id) {
         if (!postRepo.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post não encontrado para exclusão");
+            throw new PostNotFoundException(id);
         }
         postRepo.deleteById(id);
     }

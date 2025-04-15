@@ -11,12 +11,14 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
-@Table(name = "Post_tb")
+@Table(name = "post_tb")
 public class Post implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -41,24 +43,23 @@ public class Post implements Serializable{
     @NotNull(message = "Category cannot be null")
 	private CategoryPost category;
     
-    
+    @Column(name = "like_bool")
     private boolean like_bool;
+    
+    @JoinColumn(name = "user_id")
+    private Long userId;
 
-	public Post(String title, String body, CategoryPost category) {
+    
+	public Post(Long userId, String title, String body, CategoryPost category) {
 		super();
+		this.userId = userId;
 		this.title = title;
 		this.body = body;
 		this.date = LocalDate.now();
 		this.category = category;
 	}
+
 	
-	public Post(String title, String body, LocalDate date, CategoryPost category) {
-		super();
-		this.title = title;
-		this.body = body;
-		this.date = LocalDate.now();
-		this.category = category;
-	}
 	public Post() {
 
 	}
@@ -127,6 +128,17 @@ public class Post implements Serializable{
 	public Long getId() {
 		return id;
 	}
+
+	
+	
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 
 
 

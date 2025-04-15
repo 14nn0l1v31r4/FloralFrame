@@ -40,7 +40,7 @@ public class CommentTest {
 	@DisplayName("Busca por Id em CommentService com sucesso.")
 	void testFindById() {
         
-        Comment mockedComment = new Comment(true, LocalDate.now(), "comenta´rio tal");
+        Comment mockedComment = new Comment(1L, true, LocalDate.now(), "comenta´rio tal");
         when(commentRepo.findById(1L)).thenReturn(Optional.of(mockedComment));
        
        // 

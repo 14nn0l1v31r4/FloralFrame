@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Reply;
-import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
+import br.edu.iff.ccc.bsi.webdev.exception.ReplyNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.ReplyRepository;
 
 @Service
@@ -20,7 +20,7 @@ public class ReplyService {
 
     // Método para buscar uma resposta por ID
     public Reply findById(Long id) {
-        return replyRepo.findById(id).orElseThrow(() -> new RuntimeException("Resposta não encontrada"));
+        return replyRepo.findById(id).orElseThrow(() -> new ReplyNotFoundException(id));
     }
 
     // Método para criar uma nova resposta
@@ -40,6 +40,9 @@ public class ReplyService {
 	}
     
     public Reply update(Long id, Reply replyDetails) {
+		if (!replyRepo.existsById(id)) {
+			throw new ReplyNotFoundException(id);
+		}
         Reply reply = findById(id);
         reply.setContent(replyDetails.getContent());
         reply.setCreatedAt(replyDetails.getCreatedAt());
@@ -48,7 +51,7 @@ public class ReplyService {
     
     public void deleteById(Long id) {
         if (!replyRepo.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resposta não encontrada para exclusão");
+            throw new ReplyNotFoundException(id);
         }
         replyRepo.deleteById(id);
     }

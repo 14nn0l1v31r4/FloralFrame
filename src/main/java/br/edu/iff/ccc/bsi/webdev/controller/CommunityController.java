@@ -37,7 +37,7 @@ public class CommunityController {
 	@Autowired
     private CommunityDTO communityDTO;
 
-    @PostMapping("/create")
+    @PostMapping()
     @Operation(summary = "Criar uma nova comunidade")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Comunidade criada com sucesso"),
@@ -48,7 +48,7 @@ public class CommunityController {
         return communityDTO.toModel(createdCommunity);
     }
     
-    @GetMapping("/search/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Buscar comunidade por ID")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Comunidade encontrada"),
@@ -59,7 +59,7 @@ public class CommunityController {
         return communityDTO.toModel(community);
     }
     
-    @GetMapping("/search/all")
+    @GetMapping()
     @Operation(summary = "Listar todas as comunidades")
     public CollectionModel<EntityModel<Community>> getAllCommunities() {
         List<EntityModel<Community>> communities = communityService.findAll().stream()
@@ -68,20 +68,20 @@ public class CommunityController {
         return CollectionModel.of(communities, linkTo(methodOn(CommunityController.class).getAllCommunities()).withSelfRel());
     }
     
-    @GetMapping("/search/{name}")
+    @GetMapping("/name/{name}")
     @Operation(summary = "Buscar comunidades pelo nome")
     public List<Community> getCommunitiesByName(@PathVariable String name) {
         return communityService.findByName(name);
     }
     
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Atualizar dados de uma comunidade")
     public EntityModel<Community> updateCommunity(@PathVariable Long id, @RequestBody Community communityDetails) {
         Community updatedCommunity = communityService.update(id, communityDetails);
         return communityDTO.toModel(updatedCommunity);
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Deletar uma comunidade por ID")
     public void deleteCommunity(@PathVariable Long id) {
         communityService.deleteById(id);

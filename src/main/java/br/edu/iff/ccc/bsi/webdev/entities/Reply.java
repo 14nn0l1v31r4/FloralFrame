@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -25,9 +26,13 @@ public class Reply extends Interaction implements Serializable{
 	
 	@Column
 	private LocalDate createdAt;
+	
+	@JoinColumn(name = "user_id")
+	private Long userIdReply;
 
-	public Reply(boolean like, LocalDate createdAt, String content) {
+	public Reply(Long userIdReply, boolean like, LocalDate createdAt, String content) {
 		super(like, createdAt);
+		this.userIdReply = userIdReply;
 		this.content = content;
 	}
 
@@ -64,4 +69,12 @@ public class Reply extends Interaction implements Serializable{
 		
 	}
 
+	
+	public Long getUserIdReply() {
+		return userIdReply;
+	}
+
+	public void setUserIdReply(Long userIdReply) {
+		this.userIdReply = userIdReply;
+	}
 }
