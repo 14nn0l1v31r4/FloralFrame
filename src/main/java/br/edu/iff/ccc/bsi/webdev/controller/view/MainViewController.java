@@ -10,6 +10,12 @@ public class MainViewController {
 
 	@GetMapping("/")
 	public String gethome() {
-		return "home.html";
+		return "index.html";
 	}
+	
+	@GetMapping("login/")
+	public String getLogin() {
+		return "login";
+	}
+	
 }

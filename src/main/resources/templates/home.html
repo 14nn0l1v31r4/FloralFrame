@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+	<head th:replace="~{head :: head}"></head>
 <head>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
     <meta charset="UTF-8">
     <title>Título</title>
 </head>
 <body>
-	<header>Construção</header>
+	<div th:replace="~{nav :: nav}">
+		    </div>
+
     <h1>Olá, mundo!</h1>
 </body>
 </html>
