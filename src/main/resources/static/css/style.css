@@ -210,7 +210,6 @@ h1 {
 
 .login-input-group input:focus {
     border-color: #7ed957; /* Verde no foco */
-	background-color:darkgreen;
 }
 
 .login-btn {
@@ -250,3 +249,85 @@ h1 {
     background-color: #68c84c;
 }
 
+/* Tela de Cadastro */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7; /* Fundo suave */
+}
+
+.register-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Ligeiramente maior que o login */
+    text-align: center;
+}
+
+.register-form h1 {
+    color: #5ca946; /* Verde suave */
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.register-input-group label {
+    font-size: 1rem;
+    color: #333;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.register-input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.register-input-group input:focus {
+    border-color: #7ed957; /* Verde no foco */
+}
+
+.register-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background-color: #7ed957;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+    background-color: #68c84c; /* Verde mais escuro */
+}
+
+/* Estilo para o link de registrar */
+.register-link {
+    color: #7ed957; /* Verde suave */
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 1rem;
+    display: inline-block;
+    text-align: right; /* Alinha à direita */
+    width: 100%;
+}
+
+.register-link:hover {
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+}

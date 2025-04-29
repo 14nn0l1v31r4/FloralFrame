@@ -18,4 +18,8 @@ public class MainViewController {
 		return "login";
 	}
 	
+	@GetMapping("register/")
+	public String getRegister() {
+		return "register";
+	}
 }
