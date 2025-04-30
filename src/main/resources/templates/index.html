@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="UTF-8">
+    <title>Título</title>
+</head>
+<body>
+	<div th:replace="~{fragments/nav :: nav}">
+		    </div>
+
+    <h1>Bem vindo ao seu Jardim!</h1>
+	
+	<!-- Grid principal -->
+	   <div class="container">
+	       <!-- Sidebar -->
+	       <div th:replace="fragments/sidebar :: sidebar"></div>
+
+	       <!-- Feed -->
+	       <div th:replace="fragments/feed :: feed"></div>
+	   </div>
+
+	   <!-- Rodapé -->
+	   <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

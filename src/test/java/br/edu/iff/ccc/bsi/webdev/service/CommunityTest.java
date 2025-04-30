@@ -36,7 +36,7 @@ public class CommunityTest {
 	@DisplayName("Busca por Id em CommunityService com sucesso.")
     void testFindById() {
         
-         Community mockedCommunity = new Community(1L, "Comunidade", " ", 1);
+         Community mockedCommunity = new Community("Comunidade", " ", 1);
          when(communityRepo.findById(1L)).thenReturn(Optional.of(mockedCommunity));
         
         // 

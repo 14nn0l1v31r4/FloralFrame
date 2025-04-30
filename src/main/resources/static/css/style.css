@@ -1,0 +1,333 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo geral do body para garantir que a estrutura use 100% da altura */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7ed957;; /* Azul bonito */
+    padding: 1rem 2rem;
+}
+
+/* Logo */
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Formulário de busca */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-input {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-button {
+    padding: 0.4rem 0.8rem;
+    background-color: #ffffff;
+    color: #28a745;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Botão Entrar */
+.login-button {
+    background-color: #ffffff;
+    color: #0d6efd;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Estilo do container principal */
+/* Container principal com flexbox */
+.container {
+    display: flex;
+    justify-content: space-between; /* Alinha os itens (sidebar e feed) lado a lado */
+    gap: 2rem; /* Espaço entre a sidebar e o feed */
+    padding: 2rem;
+    flex-wrap: wrap; /* Faz com que a estrutura seja flexível e se adapte ao tamanho da tela */
+}
+
+
+/* Sidebar */
+.sidebar {
+    background-color: #f5f5f5;
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 0 0 250px; /* Tamanho fixo */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav li {
+    margin-bottom: 2rem; /* Aumentei de 1.5rem para 2rem */
+}
+
+.sidebar nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.2rem; /* Deixei o texto maior */
+    transition: color 0.3s;
+    display: block; /* Faz o link ocupar toda a largura para melhor clique */
+    padding: 0.5rem 0; /* Deixa o texto mais solto */
+}
+
+
+.sidebar nav a:hover {
+    color: #7ed957;
+}
+
+/* Estilo do Feed */
+/* Feed */
+.feed {
+    background-color: #ffffff;
+    padding: 2rem;
+    flex: 1; /* Preenche o espaço restante */
+}
+
+.post {
+    background-color: #fafafa;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s;
+}
+
+/* Estilizando o título principal */
+h1 {
+    text-align: center;
+    margin: 2rem 0; /* Aumenta o espaço ao redor do título */
+    font-size: 2.5rem; /* Tamanho grande */
+    color: #5ca946; /* Verde suave */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+.post:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo do Rodapé */
+/* Rodapé (sem ser fixo) */
+.footer {
+    background-color: #7ed957;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #fff;
+    margin-top: auto; /* Empurra o rodapé para o final */
+}
+
+/* Tela de Login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7; /* Fundo suave */
+}
+
+.login-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Máxima largura */
+    text-align: center;
+}
+
+.login-form h1 {
+    color: #5ca946; /* Verde suave */
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.login-input-group label {
+    font-size: 1rem;
+    color: #333;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.login-input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.login-input-group input:focus {
+    border-color: #7ed957; /* Verde no foco */
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background-color: #7ed957;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #68c84c; /* Verde mais escuro */
+}
+
+.login-button {
+    background-color: #7ed957;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button .login-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.login-button:hover {
+    background-color: #68c84c;
+}
+
+/* Tela de Cadastro */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7; /* Fundo suave */
+}
+
+.register-form {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; /* Ligeiramente maior que o login */
+    text-align: center;
+}
+
+.register-form h1 {
+    color: #5ca946; /* Verde suave */
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.register-input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.register-input-group label {
+    font-size: 1rem;
+    color: #333;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.register-input-group input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.register-input-group input:focus {
+    border-color: #7ed957; /* Verde no foco */
+}
+
+.register-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    background-color: #7ed957;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-btn:hover {
+    background-color: #68c84c; /* Verde mais escuro */
+}
+
+/* Estilo para o link de registrar */
+.register-link {
+    color: #7ed957; /* Verde suave */
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 1rem;
+    display: inline-block;
+    text-align: right; /* Alinha à direita */
+    width: 100%;
+}
+
+.register-link:hover {
+    text-decoration: underline; /* Sublinha ao passar o mouse */
+}

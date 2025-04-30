@@ -27,8 +27,7 @@ public class Community implements Serializable {
 	@Column
 	private int membersQuantity;
 
-	public Community(Long id, String name, String description, int membersQuantity) {
-		this.id = id;
+	public Community(String name, String description, int membersQuantity) {
 		this.name = name;
 		this.description = description;
 		this.membersQuantity = membersQuantity;

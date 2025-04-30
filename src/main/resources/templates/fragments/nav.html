@@ -1,0 +1,15 @@
+<!-- fragments/navbar.html -->
+
+<header class="nav" th:fragment="nav">
+    <div class="logo">Logo</div>
+
+    <form class="search-form" method="GET" action="/pesquisa">
+        <input type="text" name="q" placeholder="Pesquisar..." class="search-input">
+        <button type="submit" class="search-button">🔍</button>
+    </form>
+
+	<button class="login-button">
+	    <a th:href="@{/home/login/}" class="login-link">Entrar</a>
+	</button>
+
+</header>

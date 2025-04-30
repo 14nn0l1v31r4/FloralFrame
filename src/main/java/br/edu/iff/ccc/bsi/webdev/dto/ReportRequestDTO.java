@@ -1,5 +1,7 @@
 package br.edu.iff.ccc.bsi.webdev.dto;
 
+import org.springframework.stereotype.Component;
+
 public class ReportRequestDTO {
     private Long userId;
     private Long postId;

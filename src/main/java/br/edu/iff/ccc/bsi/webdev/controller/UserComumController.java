@@ -35,17 +35,18 @@ public class UserComumController {
     @Autowired
     private UserComumService userComumService;
     
+    @Autowired
     private UserComumDTO userDTO;
 
-    @PostMapping("/create")
+    @PostMapping()
     @Operation(summary = "Criar um novo usuário")
     @ApiResponse(responseCode = "200", description = "Usuário criado com sucesso")
-    public EntityModel<UserComum> createUser(@Valid @RequestBody UserComum user) {
+    public EntityModel<UserComum> createUser( @RequestBody UserComum user) {
         UserComum createdUser = userComumService.save(user);
         return userDTO.toModel(createdUser);
     }
 
-    @GetMapping("/search/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Buscar usuário por ID")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
@@ -56,7 +57,7 @@ public class UserComumController {
         return userDTO.toModel(user);
     }
     
-    @GetMapping("/search/{name}")
+    @GetMapping("/name/{name}")
     @Operation(summary = "Buscar usuários por nome")
     public CollectionModel<EntityModel<UserComum>> getUsersByName(@PathVariable String name) {
         List<EntityModel<UserComum>> users = userComumService.findByName(name).stream()
@@ -65,7 +66,7 @@ public class UserComumController {
         return CollectionModel.of(users, linkTo(methodOn(UserComumController.class).getAllUsers()).withSelfRel());
     }
     
-    @GetMapping("/all")
+    @GetMapping()
     @Operation(summary = "Listar todos os usuários")
     public CollectionModel<EntityModel<UserComum>> getAllUsers() {
         List<EntityModel<UserComum>> users = userComumService.findAll().stream()
@@ -74,7 +75,7 @@ public class UserComumController {
         return CollectionModel.of(users, linkTo(methodOn(UserComumController.class).getAllUsers()).withSelfRel());
     }
     
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Atualizar um usuário")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
@@ -85,7 +86,7 @@ public class UserComumController {
         return userDTO.toModel(updatedUser);
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Excluir um usuário")
     public void deleteUser(@PathVariable Long id) {
         userComumService.deleteById(id);

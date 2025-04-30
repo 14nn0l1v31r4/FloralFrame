@@ -1,7 +1,6 @@
 package br.edu.iff.ccc.bsi.webdev.services;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
+import br.edu.iff.ccc.bsi.webdev.exception.UserNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.UserComumRepository;
 
 @Service
@@ -19,7 +19,7 @@ public class UserComumService{
 	private UserComumRepository userRepo;
 	
 	public UserComum findById(Long id){
-		UserComum user = userRepo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+		UserComum user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 		return user;
 	}
 	
@@ -29,7 +29,7 @@ public class UserComumService{
 	 
 	 public UserComum update(Long id, UserComum user) {
 	        if (!userRepo.existsById(id)) {
-	            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado para atualização");
+	            throw new UserNotFoundException(id);
 	        }
 	        return userRepo.save(user);
 	    }
@@ -37,7 +37,7 @@ public class UserComumService{
 	 
 	 public void deleteById(Long id) {
 	        if (!userRepo.existsById(id)) {
-	            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado para exclusão");
+	            throw new UserNotFoundException(id);
 	        }
 	        userRepo.deleteById(id);
 	    }

@@ -36,7 +36,7 @@ public class Replytest {
 	@Test
 	@DisplayName("Buscar por Id em ReplyService com sucesso.")
 	void testFindById() {
-		Reply mockedReply = new Reply(true, LocalDate.now(), "teste" );
+		Reply mockedReply = new Reply(1L,true, LocalDate.now(), "teste" );
 		 when(replyRepo.findById(1L)).thenReturn(Optional.of(mockedReply));
 		
 		 Reply result = replyService.findById(1L);

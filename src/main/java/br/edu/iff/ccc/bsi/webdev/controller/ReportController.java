@@ -52,7 +52,7 @@ public class ReportController {
 	@Autowired
 	private PostService postService;
 
-    @PostMapping("/create")
+    @PostMapping()
     @Operation(summary = "Criar um novo relatório de denúncia")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Relatório criado com sucesso"),
@@ -75,7 +75,7 @@ public class ReportController {
         return reportDTO.toModel(report);
     }
     
-    @GetMapping("/search/{id}")
+    @GetMapping("/{id}")
     @Operation(summary = "Buscar relatório por ID")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Relatório encontrado"),
@@ -86,7 +86,7 @@ public class ReportController {
 		return reportDTO.toModel(report);
     }
     
-    @GetMapping("/all")
+    @GetMapping("")
     @Operation(summary = "Listar todos os relatórios")
     public CollectionModel<EntityModel<Report>> getAllReports() {
         List<EntityModel<Report>> reports = reportService.findAll().stream()
@@ -95,14 +95,14 @@ public class ReportController {
         return CollectionModel.of(reports, linkTo(methodOn(ReportController.class).getAllReports()).withSelfRel());
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Atualizar um relatório existente")
     public EntityModel<Report> updateReport(@PathVariable Long id, @RequestBody Report reportDetails) {
         Report updatedReport = reportService.update(id, reportDetails);
         return reportDTO.toModel(updatedReport);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Excluir um relatório")
     public void deleteReport(@PathVariable Long id) {
         reportService.deleteById(id);

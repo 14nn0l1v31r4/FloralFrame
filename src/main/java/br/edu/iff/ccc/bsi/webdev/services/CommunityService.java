@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Community;
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
+import br.edu.iff.ccc.bsi.webdev.exception.CommunityNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.CommunityRepository;
 
 @Service
@@ -25,7 +26,7 @@ public class CommunityService {
 	}
 	
 	public Community findById(Long id){
-		Community community = communityRepo.findById(id).orElseThrow(null);
+		Community community = communityRepo.findById(id).orElseThrow( () -> new CommunityNotFoundException(id));
 		return community;
 	}
 	
@@ -50,7 +51,7 @@ public class CommunityService {
 	
 	public void deleteById(Long id) {
         if (!communityRepo.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comunidade não encontrada para exclusão");
+            throw new CommunityNotFoundException(id);
         }
         communityRepo.deleteById(id);
     }

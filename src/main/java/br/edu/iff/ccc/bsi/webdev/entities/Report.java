@@ -23,12 +23,12 @@ public class Report implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne // Relacionamento: um usuário pode fazer várias denúncias
+    @ManyToOne 
     @JoinColumn(name = "reporter_id", nullable = false)
     @NotNull(message = "User cannot be null")
     private UserComum reporter; // Quem fez a denúncia
 
-    @ManyToOne // Relacionamento: um post pode ser denunciado várias vezes
+    @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
     @NotNull(message = "Post ID cannot be null")
     private Post post; // Post denunciado

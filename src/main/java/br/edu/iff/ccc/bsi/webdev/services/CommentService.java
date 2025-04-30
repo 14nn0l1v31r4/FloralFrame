@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Comment;
+import br.edu.iff.ccc.bsi.webdev.exception.CommentNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.CommentRepository;
 
 @Service
@@ -19,7 +20,7 @@ public class CommentService {
 
     // Método para buscar um comentário por ID
     public Comment findById(Long id) {
-        return commentRepo.findById(id).orElseThrow(() -> new RuntimeException("Comentário não encontrado"));
+        return commentRepo.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
     }
 
     // Método para criar um novo comentário
@@ -43,6 +44,9 @@ public class CommentService {
     }
     
     public Comment update(Long id, Comment commentDetails) {
+		if (!commentRepo.existsById(id)) {
+			throw new CommentNotFoundException();
+		}
         Comment comment = findById(id);
         comment.setContent(commentDetails.getContent());
         return commentRepo.save(comment);
@@ -50,7 +54,7 @@ public class CommentService {
     
     public void deleteById(Long id) {
         if (!commentRepo.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comentário não encontrado para exclusão");
+            throw new CommentNotFoundException(id);
         }
         commentRepo.deleteById(id);
     }

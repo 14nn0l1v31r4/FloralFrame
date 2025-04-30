@@ -3,10 +3,12 @@ package br.edu.iff.ccc.bsi.webdev.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 
 @MappedSuperclass
 public abstract class Person implements Serializable {
@@ -16,11 +18,22 @@ public abstract class Person implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
- 
-	protected String name;
-	protected String email;
-	protected String password;
-	protected String phone;
+
+	
+	@Column(name = "name", nullable = false, length = 100)
+	@NotNull(message = "Name cannot be null")
+    private String name;
+
+    @Column(name = "email", unique = true, nullable = false, length = 50)
+    @NotNull(message = "Email should be valid")
+    private String email;
+
+    @Column(name = "phone")
+    @NotNull(message = "Phone cannot be null")
+    private String phone;
+    
+    @NotNull(message = "Password cannot be null")
+    private String password;
 	
 	public Person(String name, String email, String password, String phone) {
 		this.name = name;

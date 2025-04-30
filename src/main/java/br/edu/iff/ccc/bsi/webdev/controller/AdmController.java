@@ -37,7 +37,7 @@ public class AdmController {
 	@Autowired
     private AdmDTO admDTO;
 
-    @PostMapping("/create")
+    @PostMapping()
     @Operation(summary = "Criar administrador")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Administrador criado com sucesso"),
@@ -60,7 +60,7 @@ public class AdmController {
         return admDTO.toModel(adm);
     }
     
-    @GetMapping("/all")
+    @GetMapping()
     @Operation(summary = "Listar todos os administradores")
     public CollectionModel<EntityModel<Adm>> getAllAdms() {
         List<EntityModel<Adm>> adms = admService.findAll().stream()
@@ -69,14 +69,14 @@ public class AdmController {
         return CollectionModel.of(adms, linkTo(methodOn(AdmController.class).getAllAdms()).withSelfRel());
     }
     
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Atualizar administrador")
     public EntityModel<Adm> updateAdm(@PathVariable Long id, @RequestBody Adm admDetails) {
         Adm updatedAdm = admService.update(id, admDetails);
         return admDTO.toModel(updatedAdm);
     }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @Operation(summary = "Deletar administrador")
     public void deleteAdm(@PathVariable Long id) {
         admService.deleteById(id);

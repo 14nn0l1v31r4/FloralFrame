@@ -40,7 +40,7 @@ public class PostTest {
     void testFindById() {
 		
         
-         Post mockedPost = new Post("titulo",  "tal tal tal", CategoryPost.AQUATICA);
+         Post mockedPost = new Post(1L,"titulo",  "tal tal tal", CategoryPost.AQUATICA);
          when(postRepo.findById(1L)).thenReturn(Optional.of(mockedPost));
         
         // 

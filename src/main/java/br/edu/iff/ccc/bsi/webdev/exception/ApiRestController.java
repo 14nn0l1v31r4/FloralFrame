@@ -15,6 +15,12 @@ public class ApiRestController extends ResponseEntityExceptionHandler {
         errorInfo.setTitle("Usuário não encontrado");
         return errorInfo;
     }
+	@ExceptionHandler(AdmNotFoundException.class)
+	ProblemDetail handleUserNotFoundException(AdmNotFoundException e) {
+		ProblemDetail errorInfo = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getLocalizedMessage());
+		errorInfo.setTitle("Usuário não encontrado");
+		return errorInfo;
+	}
 
     @ExceptionHandler(CommentNotFoundException.class)
     ProblemDetail handleCommentNotFoundException(CommentNotFoundException e) {
