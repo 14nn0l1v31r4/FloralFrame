@@ -25,5 +25,9 @@ public class UserComum extends Person {
 		super();
 	}
 	
+	public UserComum getUser() {
+        return this;
+    }
+	
 
 }

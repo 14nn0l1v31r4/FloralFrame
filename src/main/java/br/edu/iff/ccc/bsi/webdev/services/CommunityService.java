@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Community;
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
 import br.edu.iff.ccc.bsi.webdev.exception.CommunityNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.CommunityRepository;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class CommunityService {
@@ -55,5 +54,21 @@ public class CommunityService {
         }
         communityRepo.deleteById(id);
     }
+	
+	@PostConstruct
+	public void init() {
+	    if (communityRepo.count() == 0) {
+	        Community c1 = new Community();
+	        c1.setName("Desenvolvedores Java");
+	        c1.setDescription("Comunidade para apaixonados por Java.");
+	        communityRepo.save(c1);
+
+	        Community c2 = new Community();
+	        c2.setName("Frontend Lovers");
+	        c2.setDescription("Tudo sobre React, Angular e Vue.");
+	        communityRepo.save(c2);
+	    }
+	}
+
 	
 }

@@ -2,6 +2,8 @@ package br.edu.iff.ccc.bsi.webdev.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.edu.iff.ccc.bsi.webdev.enums.CategoryPost;
 import jakarta.persistence.Column;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -46,13 +49,16 @@ public class Post implements Serializable{
     @Column(name = "like_bool")
     private boolean like_bool;
     
-    @JoinColumn(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "userID", nullable = false)
+    private UserComum userID;
 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
     
-	public Post(Long userId, String title, String body, CategoryPost category) {
+	public Post(UserComum userId, String title, String body, CategoryPost category) {
 		super();
-		this.userId = userId;
+		this.userID = userId;
 		this.title = title;
 		this.body = body;
 		this.date = LocalDate.now();
@@ -60,6 +66,16 @@ public class Post implements Serializable{
 	}
 
 	
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+
 	public Post() {
 
 	}
@@ -131,12 +147,12 @@ public class Post implements Serializable{
 
 	
 	
-	public Long getUserId() {
-		return userId;
+	public UserComum getUser() {
+		return userID;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUser(UserComum userID) {
+		this.userID = userID;
 	}
 
 

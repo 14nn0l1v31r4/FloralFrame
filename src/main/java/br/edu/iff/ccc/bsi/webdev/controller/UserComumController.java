@@ -41,7 +41,7 @@ public class UserComumController {
     @PostMapping()
     @Operation(summary = "Criar um novo usuário")
     @ApiResponse(responseCode = "200", description = "Usuário criado com sucesso")
-    public EntityModel<UserComum> createUser( @RequestBody UserComum user) {
+    public EntityModel<UserComum> createUser(@Valid @RequestBody UserComum user) {
         UserComum createdUser = userComumService.save(user);
         return userDTO.toModel(createdUser);
     }

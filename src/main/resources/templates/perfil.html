@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="UTF-8">
+    <title>Perfil</title>
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+	<div class="container">
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+		
+    <h1>Perfil do Usuário</h1>
+    <p><strong>Nome:</strong> <span th:text="${userComum.name}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${userComum.email}"></span></p>
+    <p><strong>Telefone:</strong> <span th:text="${userComum.phone}"></span></p>
+	
+	<h2>Posts do Usuário</h2>
+	    <div th:if="${#lists.isEmpty(posts)}">
+	        <p>Você ainda não tem posts.</p>
+	    </div>
+
+	    <div th:each="post : ${posts}">
+	        <div class="post">
+	            <h3 th:text="${post.title}">Título do Post</h3>
+	            <p th:text="${post.body}">Corpo do Post</p>
+	        </div>
+	    </div>
+		
+	</div>
+</body>
+</html>

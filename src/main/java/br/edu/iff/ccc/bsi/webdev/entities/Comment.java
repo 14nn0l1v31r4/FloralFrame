@@ -5,8 +5,11 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment extends Interaction implements Serializable{
@@ -18,6 +21,7 @@ public class Comment extends Interaction implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
@@ -26,13 +30,32 @@ public class Comment extends Interaction implements Serializable{
 	@Column
 	private LocalDate createdAt;
 	
-    @JoinColumn(name = "user_id")
-    private Long userIdComment;
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private UserComum userIdComment;
 
-	public Comment(Long userIdComment, boolean like, LocalDate createdAt, String content) {
+    
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public void setUserIdComment(UserComum userId) {
+		this.userIdComment = userId;
+	}
+
+	public Comment(UserComum userIdComment, boolean like, LocalDate createdAt, String content, Post post) {
 		super(like, createdAt);
 		this.userIdComment = userIdComment;
 		this.content = content;
+		this.post = post;
 	}
 
 	public Long getId() {
@@ -66,7 +89,7 @@ public class Comment extends Interaction implements Serializable{
 	}
 
 	
-	public Long getUserIdComment() {
+	public UserComum getUserIdComment() {
 		return userIdComment;
 	}
 }

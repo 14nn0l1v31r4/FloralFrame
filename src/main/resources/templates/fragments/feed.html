@@ -1,5 +1,8 @@
 <main class="feed" th:fragment="feed">
-    <article class="post">Postagem 1</article>
-    <article class="post">Postagem 2</article>
-    <article class="post">Postagem 3</article>
+    <article class="post" th:each="post : ${posts}">
+        <h2 th:text="${post.title}">Título do Post</h2>
+        <p th:text="${post.body}">Conteúdo do Post</p>
+        <p><strong>Categoria:</strong> <span th:text="${post.category}"></span></p>
+        <p><strong>Data:</strong> <span th:text="${#temporals.format(post.date, 'dd/MM/yyyy')}"></span></p>
+    </article>
 </main>
