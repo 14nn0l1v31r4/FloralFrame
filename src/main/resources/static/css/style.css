@@ -339,3 +339,263 @@ text {
 .register-link:hover {
     text-decoration: underline; /* Sublinha ao passar o mouse */
 }
+
+.dashboard-content {
+    flex: 1; /* Ocupa o espaço restante ao lado da sidebar */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Se quiser centralizar verticalmente, use center */
+    gap: 1rem;
+}
+
+.dashboard-content h1,
+.dashboard-content p {
+    text-align: center;
+}
+
+
+.dashboard-button {
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #7ed957;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dashboard-button:hover {
+    background-color: #68c84c;
+}
+
+/* === Painel de denúncias === */
+
+/* Container da tabela */
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 1.1rem; /* maior */
+}
+
+/* Cabeçalho da tabela */
+.report-table thead tr {
+  background: #7ed957;
+  color: #fff;
+}
+
+/* Células do cabeçalho e corpo */
+.report-table th,
+.report-table td {
+  padding: 1rem 0.8rem; /* mais espaço */
+}
+
+/* Linhas do corpo da tabela */
+.report-table tbody tr {
+  background: #fafafa;
+  border-bottom: 2px solid #e0e0e0; /* linha mais “grossa” */
+}
+
+/* Efeito hover nas linhas do corpo */
+.report-table tbody tr:hover {
+  background: #f0fdf0; /* leve destaque ao passar o mouse */
+}
+
+/* === Botões de ação dentro da tabela === */
+
+/* Estilo base dos botões */
+.report-table .btn-delete,
+.report-table .btn-remove-report {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+/* Botão vermelho */
+.btn-delete {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* Botão amarelo */
+.btn-remove-report {
+  background: #ffc107;
+  color: #333;
+}
+
+/* Efeito hover botão vermelho */
+.btn-delete:hover {
+  background: #c82333;
+}
+
+/* Efeito hover botão amarelo */
+.btn-remove-report:hover {
+  background: #e6ac00;
+}
+
+/* === Comentários & Respostas === */
+.comments {
+  margin-top: 1.5rem;
+}
+
+.comments h3 {
+  font-size: 1.25rem;
+  color: #5ca946;
+  margin-bottom: 0.8rem;
+}
+
+.comments ul,
+.replies ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Item de comentário */
+.comments li {
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Item de reply (um pouco recuado) */
+.replies li {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  margin: 0.6rem 0;
+}
+
+/* === Formulários de comentário / reply / denúncia === */
+.comment-form,
+.reply-form,
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.comment-input,
+.reply-input,
+.report-input {
+  width: 100%;
+  min-height: 90px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+.reply-input {
+  width: 45%;   /* menor largura para reply */
+  max-width: 200px; /* opcional, limita tamanho máximo */
+  min-height: 60px; /* menor altura para reply */
+}
+
+
+/* textarea menor para denúncia */
+.report-input {
+  min-height: 70px;
+}
+
+/* === Botões Enviar / Responder / Denunciar === */
+.btn-send,
+.btn-reply,
+.btn-report {
+  align-self: flex-start;          /* mantém à esquerda */
+  background: #7ed957;
+  color: #fff;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-send:hover,
+.btn-reply:hover,
+.btn-report:hover {
+  background: #68c84c;
+}
+
+/* Botão “Denunciar comentário/resposta” (summary) */
+details summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #dc3545;
+  margin-top: 0.4rem;
+}
+
+/* Pequeno destaque visual quando o details é aberto */
+details[open] summary {
+  font-weight: bold;
+}
+
+/* Espaço interno extra dentro do <details> */
+details form {
+  margin-top: 0.6rem;
+}
+
+.comments-wrapper {
+  margin-top: 1rem;
+}
+
+.comments-toggle {
+  cursor: pointer;
+  font-weight: 600;
+  padding: .4rem .6rem;
+  border-radius: 6px;
+  background: #e0ffe0;
+}
+
+.comments-wrapper[open] .comments-toggle {
+  background: #c0f0c0;
+}
+
+
+
+
+/* card de comunidade (se já tiver algo parecido, apenas adicione as regras novas) */
+.community-card {
+    display: flex;
+    flex-direction: column;   /* empilha título, descrição e link em coluna   */
+    justify-content: flex-start;
+    align-items: center;      /* centra horizontalmente tudo (ou só o link)  */
+
+    background: #fafafa;
+    padding: 1.0rem;
+    border-radius: 8px;
+    width: 280px;             /* exemplo — ajuste como preferir */
+    min-height: 200px;        /* garante espaço para empurrar o link p/ baixo */
+}
+
+/* link sem sublinhado / cor herdada */
+.link-clean {
+    margin-top: auto;         /* empurra o link até o rodapé do card          */
+    text-decoration: none;    /* remove sublinhado                            */
+    color: inherit;           /* herda a cor do texto do card / pai           */
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity .2s;
+}
+
+.link-clean:hover,
+.link-clean:focus {
+    opacity: .75;             /* feedback visual                              */
+}
+
+

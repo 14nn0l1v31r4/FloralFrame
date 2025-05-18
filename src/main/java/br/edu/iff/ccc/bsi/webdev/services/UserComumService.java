@@ -54,7 +54,7 @@ public class UserComumService{
 		    return userRepo.findAll();
 		}
 	 
-	 public UserComum findByUser(UserComum userComum) {
+	 public UserComum findById(UserComum userComum) {
 		    if (userComum != null && userComum.getId() != null) {
 		        return findById(userComum.getId()); // Busca o usuário pelo ID
 		    }

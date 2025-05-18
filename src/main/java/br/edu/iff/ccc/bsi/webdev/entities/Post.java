@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.iff.ccc.bsi.webdev.enums.CategoryPost;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -49,16 +50,21 @@ public class Post implements Serializable{
     @Column(name = "like_bool")
     private boolean like_bool;
     
-    @ManyToOne
-    @JoinColumn(name = "userID", nullable = false)
-    private UserComum userID;
+    @Column(name = "userID", nullable = false)
+    private Long userID;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
     
-	public Post(UserComum userId, String title, String body, CategoryPost category) {
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserComum author;
+
+
+    
+	public Post(Long userID, String title, String body, CategoryPost category) {
 		super();
-		this.userID = userId;
+		this.userID = userID;
 		this.title = title;
 		this.body = body;
 		this.date = LocalDate.now();
@@ -147,20 +153,20 @@ public class Post implements Serializable{
 
 	
 	
-	public UserComum getUser() {
+	public Long getUserID() {
 		return userID;
 	}
 
-	public void setUser(UserComum userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
-
-
-
-
 	
-	
-	
-	
+	public void setAuthor(UserComum author) {
+		this.author = author;
+	}
+
+	public UserComum getAuthor() {
+		return author;
+	}
 	
 }

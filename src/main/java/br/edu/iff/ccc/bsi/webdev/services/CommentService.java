@@ -24,8 +24,8 @@ public class CommentService {
     }
 
     // Método para criar um novo comentário
-    public Comment createComment(String content, boolean like, LocalDate createdAt) {
-        Comment comment = new Comment(like, createdAt);
+    public Comment createComment(String content, boolean like, LocalDate createdAt , Post post, UserComum author) {
+        Comment comment = new Comment(author, like, createdAt, content, post);
         comment.setContent(content);
         return commentRepo.save(comment);
     }
@@ -63,7 +63,5 @@ public class CommentService {
         return commentRepo.findByPost(post);
     }
     
-    public List<Comment> findByUser(UserComum user) {
-        return commentRepo.findByUserComumId(user);
-    }
+    
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:fragment="reportreplies (reports)">
+<section>
+    <h2>Denúncias de Respostas</h2>
+
+    <table class="report-table" th:if="${reports != null and !reports.isEmpty()}">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Denunciante</th>
+                <th>Data</th>
+                <th>Motivo</th>
+                <th>Conteúdo da Resposta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="report : ${reports}" th:if="${report.reply != null}">
+                <td th:text="${report.id}">3</td>
+                <td th:text="${report.reporter.name}">Carlos</td>
+                <td th:text="${#temporals.format(report.reportDate, 'dd/MM/yyyy')}">01/01/2025</td>
+                <td th:text="${report.reason}">Motivo</td>
+                <td th:text="${report.reply.content}">Resposta</td>
+				<td style="white-space:nowrap">
+							                <!-- Excluir Post -->
+							                <form  style="display:inline">
+							                    <button class="btn-delete" 
+							                            onclick="return confirm('Excluir o post e TODAS as suas denúncias?')">
+							                        Excluir Post
+							                    </button>
+							                </form>
+
+							                <!-- Excluir Denúncia -->
+							                <form style="display:inline">
+							                    <button class="btn-remove-report"
+							                            onclick="return confirm('Excluir apenas esta denúncia?')">
+							                        Excluir Denúncia
+							                    </button>
+							                </form>
+							            </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${reports == null or reports.isEmpty()}">
+        Nenhuma denúncia de resposta.
+    </p>
+</section>
+</html>

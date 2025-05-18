@@ -9,19 +9,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public abstract class Interaction implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 	
-	@Column
+	@Column(name = "likes") 
 	private boolean like;
 	
-	@Column
+	@Column(name = "created_at")
 	private LocalDate createdAt;
 	
 	@ManyToOne
@@ -38,6 +40,40 @@ public abstract class Interaction implements Serializable{
 	public Interaction() {
 		
 	}
-	
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public boolean isLike() {
+		return like;
+	}
+
+	public void setLike(boolean like) {
+		this.like = like;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+	
+	
+	
+	
 }

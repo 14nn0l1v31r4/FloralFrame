@@ -51,7 +51,7 @@ public class CommentController {
         @ApiResponse(responseCode = "400", description = "Erro de validação")
     })
     public EntityModel<Comment> createComment(@RequestBody Comment comment) {
-    	UserComum user = userComumService.findByUser(comment.getUserIdComment());
+    	UserComum user = userComumService.findById(comment.getAuthor().getId());
 		if (user == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UserId inválido");
 		}

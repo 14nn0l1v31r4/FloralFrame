@@ -59,13 +59,15 @@ public class CommunityService {
 	public void init() {
 	    if (communityRepo.count() == 0) {
 	        Community c1 = new Community();
-	        c1.setName("Desenvolvedores Java");
-	        c1.setDescription("Comunidade para apaixonados por Java.");
+	        c1.setName("Suculentas Lovers");	
+	        c1.setDescription("Comunidade para apaixonados pelas Suculentas.");
+	        c1.setMembersQuantity(540);
 	        communityRepo.save(c1);
 
 	        Community c2 = new Community();
-	        c2.setName("Frontend Lovers");
-	        c2.setDescription("Tudo sobre React, Angular e Vue.");
+	        c2.setName("Frutíferas Lovers");
+	        c2.setDescription("Tudo sobre plantas Frutíferas.");
+	        c2.setMembersQuantity(320);
 	        communityRepo.save(c2);
 	    }
 	}

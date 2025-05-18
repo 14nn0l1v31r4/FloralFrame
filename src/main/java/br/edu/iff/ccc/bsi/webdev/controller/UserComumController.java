@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@RestController
+@RestController	
 @RequestMapping("api/v1/user")
 @Tag(name = "Users", description = "API para gerenciamento de usuários comuns")
 public class UserComumController {
@@ -66,7 +66,7 @@ public class UserComumController {
         return CollectionModel.of(users, linkTo(methodOn(UserComumController.class).getAllUsers()).withSelfRel());
     }
     
-    @GetMapping()
+    @GetMapping("all")
     @Operation(summary = "Listar todos os usuários")
     public CollectionModel<EntityModel<UserComum>> getAllUsers() {
         List<EntityModel<UserComum>> users = userComumService.findAll().stream()

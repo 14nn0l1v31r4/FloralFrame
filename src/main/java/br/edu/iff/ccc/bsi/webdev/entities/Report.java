@@ -10,10 +10,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
+@Table(name = "report_tb")
 public class Report implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +32,7 @@ public class Report implements Serializable{
 
     @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
-    @NotNull(message = "Post ID cannot be null")
+    @NotNull(message = "Post cannot be null")
     private Post post; // Post denunciado
 
     @Column(nullable = false)
@@ -40,6 +42,14 @@ public class Report implements Serializable{
     @Column(nullable = false)
     @PastOrPresent(message = "Date cannot be future")
     private LocalDate reportDate;
+    
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment comment; // pode ser nulo
+
+    @ManyToOne
+    @JoinColumn(name = "reply_id")
+    private Reply reply;
 
     public Report() {}
 
@@ -48,6 +58,21 @@ public class Report implements Serializable{
         this.post = post;
         this.reason = reason;
         this.reportDate = LocalDate.now();
+    }
+    public Report(UserComum reporter, Comment comment, String reason, Post post) {
+    	this.reporter = reporter;
+    	this.comment = comment;
+    	this.post = post;
+    	this.reason = reason;
+    	this.reportDate = LocalDate.now();
+    }
+    public Report(UserComum reporter, Reply reply, String reason, Comment comment, Post post) {
+    	this.reporter = reporter;
+    	this.reply = reply;
+    	this.comment = comment;
+    	this.post = post;
+    	this.reason = reason;
+    	this.reportDate = LocalDate.now();
     }
 
 	public String getReason() {
@@ -76,6 +101,30 @@ public class Report implements Serializable{
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public LocalDate getReportDate() {
+		return reportDate;
+	}
+
+	public void setReportDate(LocalDate reportDate) {
+		this.reportDate = reportDate;
+	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+
+	public Reply getReply() {
+		return reply;
+	}
+
+	public void setReply(Reply reply) {
+		this.reply = reply;
 	}
 
     

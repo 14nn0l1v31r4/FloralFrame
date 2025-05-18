@@ -1,8 +1,106 @@
 <main class="feed" th:fragment="feed">
-    <article class="post" th:each="post : ${posts}">
-        <h2 th:text="${post.title}">Título do Post</h2>
-        <p th:text="${post.body}">Conteúdo do Post</p>
-        <p><strong>Categoria:</strong> <span th:text="${post.category}"></span></p>
-        <p><strong>Data:</strong> <span th:text="${#temporals.format(post.date, 'dd/MM/yyyy')}"></span></p>
-    </article>
+	<head>
+	    <link rel="stylesheet" th:href="@{/css/style.css}" />
+	    <meta charset="UTF-8">
+	</head>
+  <article class="post" th:each="post : ${posts}">
+    <!---- Cabeçalho do post -->
+    <p>
+      <span th:text="${post.author.name}">Autor</span>
+      em <span th:text="${#temporals.format(post.date,'dd/MM')}">dd/MM</span>
+    </p>
+    <p><span th:text="${post.category}">CATEGORIA</span></p>
+    <h1 th:text="${post.title}">Título</h1>
+    <h2 th:text="${post.body}">Corpo</h2>
+
+	<!---- COMENTÁRIOS recolhíveis -->
+
+	<details class="comments-wrapper">
+	      <summary class="comments-toggle">
+	        Comentários&nbsp;(
+	        <span th:text="${post.comments != null ? post.comments.size() : 0}">0</span>
+	        )
+	      </summary>
+    <!---- Comentários -->
+    <section class="comments">
+      <h3>Comentários:</h3>
+
+      <p th:if="${post.comments == null or post.comments.isEmpty()}">
+        Sem comentários ainda.
+      </p>
+
+      <ul th:if="${post.comments != null}">
+        <li th:each="comment : ${post.comments}">
+          <div>
+            <strong th:text="${comment.author.name}">Autor</strong>:
+            <span th:text="${comment.content}">Conteúdo</span>
+          </div>
+
+          <!-- denunciar comentário -->
+          <details style="margin-left:20px;margin-top:4px">
+            <summary style="cursor:pointer;font-size:0.85rem">Denunciar comentário</summary>
+            <form th:action="@{/home/comment/report}" method="post" class="reply-form">
+              <input class="reply-input" type="hidden" name="commentId" th:value="${comment.id}" />
+              <textarea name="reason" class="report-input"  placeholder="Motivo…" required></textarea>
+              <button  class="btn-report" type="submit" style="font-size:0.75rem">Enviar</button>
+            </form>
+          </details>
+
+          <!-- replies -->
+          <div class="replies" style="margin-left:20px">
+            <ul th:if="${comment.replies != null}">
+              <li th:each="reply : ${comment.replies}">
+                <div style="font-size:0.85rem">
+                  <strong>↳</strong>
+                  <strong th:text="${reply.author.name}">Autor</strong>:
+                  <span th:text="${reply.content}">Conteúdo da resposta</span>
+                </div>
+
+                <!-- denunciar reply (agora dentro do loop) -->
+                <details>
+                  <summary class="report-form">Denunciar resposta</summary>
+                  <form th:action="@{/home/reply/report}" method="post">
+                    <input type="hidden" name="replyId" th:value="${reply.id}" />
+                    <textarea class="report-input" name="reason" placeholder="Motivo…" required></textarea>
+                    <button class="btn-report" type="submit" style="font-size:0.75rem">Enviar</button>
+                  </form>
+                </details>
+              </li>
+            </ul>
+          </div>
+
+          <!-- responder comentário -->
+          <form th:action="@{/home/comment/reply}" method="post" class="reply-form">
+            <input type="hidden" name="commentId" th:value="${comment.id}" />
+            <textarea class="reply-input" type="text" name="text" placeholder="Responder comentário…" required></textarea>
+            <button type="submit" class="btn-reply">Responder</button>
+          </form>
+        </li>
+      </ul>
+    </section>
+
+    <!-- novo comentário -->
+    <form th:action="@{/home/comment/create}" method="post">
+      <input type="hidden" name="postId" th:value="${post.id}" />
+      <textarea  class="comment-input" name="text" placeholder="Escreva um comentário…" required></textarea>
+      <button class="btn-send" type="submit">Comentar</button>
+    </form>
+
+    <!-- denunciar post -->
+    <details style="margin-top:10px">
+      <summary  style="cursor:pointer">Denunciar post</summary>
+      <form class="report-form" th:action="@{/home/post/report}" method="post" style="margin-top:6px">
+        <input  type="hidden" name="postId" th:value="${post.id}" />
+        <textarea class="report-input" name="reason" placeholder="Motivo…" required></textarea>
+        <button class="btn-report" type="submit">Enviar</button>
+      </form>
+    </details>
+
+    <!-- popup de sucesso -->
+    <div th:if="${reportSuccess}"
+         style="position:fixed;top:20px;right:20px;background:#4caf50;color:#fff;
+                padding:10px 20px;border-radius:5px;z-index:1000">
+      Denúncia enviada com sucesso!
+    </div>
+  </article>
 </main>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="reportposts (reports)">
+
+<head>
+  <style>
+    /* === Painel de denúncias === */
+
+    /* Container da tabela */
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 1.1rem; /* maior */
+    }
+
+    /* Cabeçalho da tabela */
+    .report-table thead tr {
+      background: #7ed957;
+      color: #fff;
+    }
+
+    /* Células do cabeçalho e corpo */
+    .report-table th,
+    .report-table td {
+      padding: 1rem 0.8rem; /* mais espaço */
+    }
+
+    /* Linhas do corpo da tabela */
+    .report-table tbody tr {
+      background: #fafafa;
+      border-bottom: 2px solid #e0e0e0; /* linha mais “grossa” */
+    }
+
+    /* Efeito hover nas linhas do corpo */
+    .report-table tbody tr:hover {
+      background: #f0fdf0; /* leve destaque ao passar o mouse */
+    }
+
+    /* === Botões de ação dentro da tabela === */
+
+    /* Estilo base dos botões */
+    .report-table .btn-delete,
+    .report-table .btn-remove-report {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+
+    /* Botão vermelho */
+    .btn-delete {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    /* Botão amarelo */
+    .btn-remove-report {
+      background: #ffc107;
+      color: #333;
+    }
+
+    /* Efeito hover botão vermelho */
+    .btn-delete:hover {
+      background: #c82333;
+    }
+
+    /* Efeito hover botão amarelo */
+    .btn-remove-report:hover {
+      background: #e6ac00;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Denúncias de Posts</h2>
+
+    <table class="report-table" th:if="${reports != null and !reports.isEmpty()}">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Denunciante</th>
+          <th>Data</th>
+          <th>Motivo</th>
+          <th>Título do Post</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="report : ${reports}" th:if="${report.post != null}">
+          <td th:text="${report.id}">1</td>
+          <td th:text="${report.reporter.name}">Autor</td>
+          <td th:text="${#temporals.format(report.reportDate,'dd/MM/yyyy')}">01/01/2025</td>
+          <td th:text="${report.reason}">Motivo</td>
+          <td th:text="${report.post.title}">Título</td>
+
+          <td>
+            <form style="display:inline">
+              <button type="submit" class="btn-delete" onclick="return confirm('Excluir o post e TODAS as suas denúncias?')">
+                Excluir Post
+              </button>
+            </form>
+
+            <form style="display:inline">
+              <button type="submit" class="btn-remove-report" onclick="return confirm('Excluir apenas esta denúncia?')">
+                Remover Denúncia
+              </button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p th:if="${reports == null or reports.isEmpty()}">
+      Nenhuma denúncia de post.
+    </p>
+  </section>
+</body>
+
+</html>

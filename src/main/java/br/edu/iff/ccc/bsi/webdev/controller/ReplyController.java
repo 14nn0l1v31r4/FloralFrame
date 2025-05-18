@@ -52,7 +52,7 @@ public class ReplyController {
         @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     public EntityModel<Reply> createReply(@RequestBody Reply reply) {
-    	UserComum user = userComumService.findById(reply.getUserIdReply());
+    	UserComum user = userComumService.findById(reply.getAuthor().getId());
 		if (user == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UserId inválido");
 		}

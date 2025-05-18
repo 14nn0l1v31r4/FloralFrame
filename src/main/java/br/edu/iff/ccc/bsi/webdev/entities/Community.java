@@ -29,7 +29,7 @@ public class Community implements Serializable {
 	
 	@Column
 	private int membersQuantity;
-
+	
 	public Community(String name, String description, int membersQuantity) {
 		this.name = name;
 		this.description = description;
@@ -60,6 +60,12 @@ public class Community implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public int getMembersQuantity() {
+		return membersQuantity;
+	}
+	public void setMembersQuantity(int membersQuantity) {
+		this.membersQuantity = membersQuantity;
 	}
 	
 	

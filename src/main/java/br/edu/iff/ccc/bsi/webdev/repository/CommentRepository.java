@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Comment;
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
-import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
@@ -17,6 +16,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     
     List<Comment> findByPost(Post post);
     
-    List<Comment> findByUserComumId(UserComum userComumId);
 
 }

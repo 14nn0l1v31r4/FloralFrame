@@ -4,21 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
 import br.edu.iff.ccc.bsi.webdev.enums.CategoryPost;
 import br.edu.iff.ccc.bsi.webdev.exception.PostNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.PostRepository;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class PostService {
 	
 	@Autowired
 	private PostRepository postRepo;
+	
+	@Autowired
+	private UserComumService userComumService;
 
 	
 	public Post findById(Long id){
@@ -26,9 +28,11 @@ public class PostService {
 		return post;
 	}
 	
-	public Post createPost(UserComum userId, String title, String body, CategoryPost category) {
+	public Post createPost(Long userId, String title, String body, CategoryPost category) {
 		
 		 Post post = new Post(userId, title, body, category);
+		 UserComum name = userComumService.findById(userId);
+		 post.setAuthor(name);
 	        return postRepo.save(post);
 	}
 	
@@ -68,8 +72,14 @@ public class PostService {
         postRepo.deleteById(id);
     }
 	
-	public List<Post> findByUser(UserComum user) {
-        return postRepo.findByUserID(user);
-    }
-
+	public List<Post> findByUserId(Long userId) {
+	    return postRepo.findByUserID(userId);
+	}
+	
+	public List<Post> findByCategory(CategoryPost category) {
+		return postRepo.findByCategory(category);
+	}
+	
+	
 }
+

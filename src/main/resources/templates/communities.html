@@ -7,25 +7,21 @@
     <title>Communites</title>
 </head>
 <body>
-<h1>Communities</h1>
-	
 	<div th:replace="~{fragments/nav :: nav}"></div>
 
 	<div class="container">
 		<!-- Sidebar -->
 		<div th:replace="fragments/sidebar :: sidebar"></div>
 
-
-
 <div th:if="${#lists.isEmpty(communities)}" class="feed">
     <p>Nenhuma comunidade encontrada.</p>
 </div>
 
-<div th:each="community : ${communities}">
+<div class="community-card" th:each="community : ${communities}">
     <div class="post">
-        <h2 class="text" th:text="${community.name}">Nome da Comunidade</h2>
+        <h1 class="text" th:text="${community.name}">Nome da Comunidade</h1>
         <p th:text="${community.description}">Descrição da Comunidade</p>
-        <a th:href="@{/community/{id}(id=${community.id})}">Ver mais</a>
+        <a class="link-clean" th:href="@{/home/community/{id}(id=${community.id})}"><strong>Ver mais </strong></a>
     </div>
 </div>
 	</div>

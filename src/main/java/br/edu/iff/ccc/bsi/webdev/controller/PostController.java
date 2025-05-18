@@ -64,10 +64,11 @@ public class PostController {
         @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     public EntityModel<Post> createPost( @Valid @RequestBody Post post) {
-    	UserComum user = userComumService.findByUser(post.getUser());
+    	UserComum user = userComumService.findById(post.getId());
 		if (user == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UserId inválido");
 		}
+		post.setAuthor(user);
         Post createdPost = postService.save(post);
         return postDTO.toModel(createdPost);
     }

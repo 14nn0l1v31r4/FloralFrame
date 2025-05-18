@@ -39,6 +39,10 @@
                     </select>
                     <p th:if="${#fields.hasErrors('*{category}')}" th:errors="*{category}" class="error-message">Categoria obrigatória</p>
                 </div>
+				
+				<!-- Campo oculto para a data (opcional, se não for gerada automaticamente no backend) -->
+				    <input type="hidden" th:field="*{date}" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"/>
+
 
                 <!-- Botão de Submissão -->
                 <button type="submit" class="login-btn">Criar Post</button>
