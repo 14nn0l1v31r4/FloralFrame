@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="UTF-8">
+    <title>Perfil</title>
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+	<div class="container">
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+		
+	<div>
+		<div class="register-form">
+			
+    <h1>Perfil do Usuário</h1>
+	<form th:action="@{/home/perfil/update}" method="post" th:object="${userComum}">
+		<div class="register-input-group">
+			
+	    <label>Nome:</label>
+	    <input type="text" id="name" th:field="*{name}" name="name"  required placeholder="Digite seu nome"/>
+	    <br>
+		</div>
+
+		<div class="register-input-group">
+	    <label>Email:</label>
+	    <input type="email" id="email" name="email"  th:field="*{email}" th:errorclass="error"  required placeholder="Digite seu Email"/>
+	    <br>
+		</div>
+
+		<div class="register-input-group">
+	    <label>Telefone:</label>
+	    <input type="text" id="phone" name="phone" th:field="*{phone}" require placeholder="Digite seu telefone" />
+	    <br>
+		</div>
+		
+		<div class="register-input-group">
+	    <label>Senha:</label>
+	    <input id="password" name="senha" type="password" th:field="*{password}" required placeholder="Digite sua nova senha" />
+	    <br>
+		</div>
+
+	    <input type="hidden" th:field="*{id}" />
+
+	    <button class="login-button" type="submit"><a class="login-link">Atualizar</a></button>
+	</form>
+		</div>	
+	</div>	
+	
+		<div th:if="${#lists.isEmpty(posts)}">
+	    <h2>Posts do Usuário</h2>
+	    <p>Você ainda não tem posts.</p>
+	</div>
+
+	<div th:replace="~{fragments/feed :: feed(posts=${posts})}"></div>
+
+		
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

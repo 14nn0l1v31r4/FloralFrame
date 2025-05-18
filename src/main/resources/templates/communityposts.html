@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title th:text="${community.name}">Comunidade</title>
+</head>
+<body>
+<!-- ­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­ NAVBAR -->
+<div th:replace="~{fragments/nav :: nav}"></div>
+
+<div class="container">
+    <!-- ­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­ SIDEBAR -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <!-- ­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­ CONTEÚDO -->
+    <main class="feed">
+        <h1 th:text="${community.name}">Nome da Comunidade</h1>
+        <p  th:text="${community.description}">Descrição</p>
+
+        <!-- Navegação de categorias (opcional) -->
+      
+
+        <!-- FILTRO + INJEÇÃO do fragmento feed -->
+        <div th:with="
+                posts = ${selectedCategory == null} ?
+                        ${posts} :
+                        ${#lists.select(posts, p -> p.category.name() == selectedCategory)}
+              "
+             th:replace="~{fragments/feed :: feed}">
+        </div>
+
+        <!-- Caso nenhum post depois do filtro -->
+        <p th:if="${#lists.isEmpty(posts)}">Nenhum post nesta categoria.</p>
+    </main>
+</div>
+
+<!-- ­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­­ FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

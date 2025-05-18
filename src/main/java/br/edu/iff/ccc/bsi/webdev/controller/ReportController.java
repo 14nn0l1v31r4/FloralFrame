@@ -26,7 +26,9 @@ import br.edu.iff.ccc.bsi.webdev.dto.ReportRequestDTO;
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
 import br.edu.iff.ccc.bsi.webdev.entities.Report;
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
+import br.edu.iff.ccc.bsi.webdev.services.CommentService;
 import br.edu.iff.ccc.bsi.webdev.services.PostService;
+import br.edu.iff.ccc.bsi.webdev.services.ReplyService;
 import br.edu.iff.ccc.bsi.webdev.services.ReportService;
 import br.edu.iff.ccc.bsi.webdev.services.UserComumService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,6 +53,12 @@ public class ReportController {
 	
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private CommentService commentService;
+
+	@Autowired
+	private ReplyService replyService;
 
     @PostMapping()
     @Operation(summary = "Criar um novo relatório de denúncia")

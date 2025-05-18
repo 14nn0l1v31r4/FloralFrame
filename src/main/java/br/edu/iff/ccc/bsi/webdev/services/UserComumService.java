@@ -53,4 +53,12 @@ public class UserComumService{
 	 public List<UserComum> findAll() {
 		    return userRepo.findAll();
 		}
+	 
+	 public UserComum findById(UserComum userComum) {
+		    if (userComum != null && userComum.getId() != null) {
+		        return findById(userComum.getId()); // Busca o usuário pelo ID
+		    }
+		    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário ou ID inválido");
+		}
+
 }

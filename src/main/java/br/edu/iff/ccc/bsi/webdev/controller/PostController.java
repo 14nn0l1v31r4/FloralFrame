@@ -23,13 +23,13 @@ import org.springframework.web.server.ResponseStatusException;
 import br.edu.iff.ccc.bsi.webdev.dto.PostDTO;
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
-import br.edu.iff.ccc.bsi.webdev.repository.UserComumRepository;
 import br.edu.iff.ccc.bsi.webdev.services.PostService;
 import br.edu.iff.ccc.bsi.webdev.services.UserComumService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/v1/post")
@@ -63,11 +63,12 @@ public class PostController {
         @ApiResponse(responseCode = "200", description = "Post criado com sucesso"),
         @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    public EntityModel<Post> createPost(  @RequestBody Post post) {
-    	UserComum user = userComumService.findById(post.getUserId());
+    public EntityModel<Post> createPost( @Valid @RequestBody Post post) {
+    	UserComum user = userComumService.findById(post.getId());
 		if (user == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "UserId inválido");
 		}
+		post.setAuthor(user);
         Post createdPost = postService.save(post);
         return postDTO.toModel(createdPost);
     }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="UTF-8">
+    <title>Criar Post</title>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/nav :: nav}"></div>
+
+    <!-- Tela de Criar Post -->
+    <div class="login-container">
+        <div class="login-form">
+            <h1>Criar Post</h1>
+            <!-- Atualizando a ação do formulário e os objetos de campo -->
+            <form th:action="@{/home/post}" th:object="${post}" method="post">
+                <!-- Campo de Título -->
+                <div class="login-input-group">
+                    <label for="title">Título</label>
+                    <input type="text" id="title" name="title" th:field="*{title}" th:errorclass="error" required placeholder="Título do Post">
+                    <p th:if="${#fields.hasErrors('*{title}')}" th:errors="*{title}" class="error-message">Título Vazio</p>
+                </div>
+
+                <!-- Campo de Descrição -->
+                <div class="login-input-group">
+                    <label for="body">Descrição</label>
+                    <input type="text" id="body" name="body" th:field="*{body}" th:errorclass="error" required placeholder="Descrição do Post">
+                    <p th:if="${#fields.hasErrors('*{body}')}" th:errors="*{body}" class="error-message">Descrição Vazia</p>
+                </div>
+
+                <!-- Campo de Categoria -->
+                <div class="login-input-group">
+                    <label for="category">Tipo de Post</label>
+                    <select id="category" name="category" th:field="*{category}" required>
+                        <option th:each="cat : ${T(br.edu.iff.ccc.bsi.webdev.enums.CategoryPost).values()}"
+                                th:value="${cat}" th:text="${cat}">Categoria</option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('*{category}')}" th:errors="*{category}" class="error-message">Categoria obrigatória</p>
+                </div>
+				
+				<!-- Campo oculto para a data (opcional, se não for gerada automaticamente no backend) -->
+				    <input type="hidden" th:field="*{date}" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"/>
+
+
+                <!-- Botão de Submissão -->
+                <button type="submit" class="login-btn">Criar Post</button>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

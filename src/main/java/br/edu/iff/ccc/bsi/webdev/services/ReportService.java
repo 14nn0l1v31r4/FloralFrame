@@ -1,13 +1,14 @@
 package br.edu.iff.ccc.bsi.webdev.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import br.edu.iff.ccc.bsi.webdev.entities.Comment;
 import br.edu.iff.ccc.bsi.webdev.entities.Post;
+import br.edu.iff.ccc.bsi.webdev.entities.Reply;
 import br.edu.iff.ccc.bsi.webdev.entities.Report;
 import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
 import br.edu.iff.ccc.bsi.webdev.exception.ReportNotFoundException;
@@ -25,11 +26,21 @@ public class ReportService {
 		return post;
 	}
 	
-	public Report createReport(UserComum reporter,Post post, String reason) {
+	public Report createReportPost(UserComum reporter,Post post, String reason) {
 		
 		Report report = new Report(reporter, post, reason);
 	        return reportRepo.save(report);
 	}
+	
+	public void createReportComment(UserComum reporter, Comment comment, String reason, Post post) {
+        Report report = new Report(reporter, comment, reason, post);
+        reportRepo.save(report);
+    }
+
+    public void createReportReply(UserComum reporter, Reply reply, String reason, Comment comment, Post post) {
+        Report report = new Report(reporter, reply, reason, comment, post);
+        reportRepo.save(report);
+    }
 	
 	public Report save(Report post) {
         return reportRepo.save(post);

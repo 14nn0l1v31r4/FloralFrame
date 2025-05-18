@@ -5,44 +5,39 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "reply_tb")
 public class Reply extends Interaction implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Id
-	private Long id;
 	
 	@Column
 	@NotNull(message = "Content cannot be null")
 	private String content;
 	
-	@Column
+	@Column(name = "created_at", nullable = false)
 	private LocalDate createdAt;
 	
-	@JoinColumn(name = "user_id")
-	private Long userIdReply;
+	@ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserComum author;
 
-	public Reply(Long userIdReply, boolean like, LocalDate createdAt, String content) {
-		super(like, createdAt);
-		this.userIdReply = userIdReply;
-		this.content = content;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	 @ManyToOne
+	 @JoinColumn(name = "comment_id", nullable = false)
+	 private Comment comment;
+	 
+	 public Reply(UserComum author, boolean like, LocalDate createdAt, String content, Comment comment) {
+	        super(like, createdAt);
+	        this.author = author;
+	        this.content = content;
+	        this.createdAt = createdAt;
+	        this.comment = comment;
+	    }
 
 	public String getContent() {
 		return content;
@@ -69,12 +64,24 @@ public class Reply extends Interaction implements Serializable{
 		
 	}
 
-	
-	public Long getUserIdReply() {
-		return userIdReply;
+	public UserComum getAuthor() {
+		return author;
 	}
 
-	public void setUserIdReply(Long userIdReply) {
-		this.userIdReply = userIdReply;
+	public void setAuthor(UserComum author) {
+		this.author = author;
 	}
+
+	public Comment getComment() {
+		return comment;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+	
+	public Long getId() {
+		return super.id;
+	}
+	
 }

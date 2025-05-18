@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <meta charset="UTF-8">
+    <title>Communites</title>
+</head>
+<body>
+	<div th:replace="~{fragments/nav :: nav}"></div>
+
+	<div class="container">
+		<!-- Sidebar -->
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+
+<div th:if="${#lists.isEmpty(communities)}" class="feed">
+    <p>Nenhuma comunidade encontrada.</p>
+</div>
+
+<div class="community-card" th:each="community : ${communities}">
+    <div class="post">
+        <h1 class="text" th:text="${community.name}">Nome da Comunidade</h1>
+        <p th:text="${community.description}">Descrição da Comunidade</p>
+        <a class="link-clean" th:href="@{/home/community/{id}(id=${community.id})}"><strong>Ver mais </strong></a>
+    </div>
+</div>
+	</div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

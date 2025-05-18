@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <meta charset="UTF-8">
@@ -14,22 +14,29 @@
     <div class="register-container">
         <div class="register-form">
             <h1>Criar Conta no Jardim</h1>
-            <form action="#" method="post">
+            <form th:action="@{/home/register}" th:object="${userComum}" method="post">
                 <div class="register-input-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" th:field="*{name}" name="name" required placeholder="Digite seu nome">
+					<p th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}" class="error-message">Nome inválido</p>
                 </div>
                 <div class="register-input-group">
                     <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+                    <input type="email" id="email" name="email"  th:field="*{email}" th:errorclass="error" required placeholder="Digite seu e-mail">
+					<p th:if="${#fields.hasErrors('*{email}')}" th:errors="*{email}" class="error-message">Email inválido</p>
                 </div>
                 <div class="register-input-group">
-                    <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" required placeholder="Crie uma senha">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="senha" th:field="*{password}" th:errorclass="error" required placeholder="Crie uma senha">
+					<p th:if="${#fields.hasErrors('*{password}')}" th:errors="*{password}" class="error-message">Campo Vazio</p>
                 </div>
                 <div class="register-input-group">
                     <label for="confirmar-senha">Confirmar Senha:</label>
                     <input type="password" id="confirmar-senha" name="confirmarSenha" required placeholder="Confirme sua senha">
+                </div>
+                <div class="register-input-group">
+                    <label for="phone">Telefone:</label>
+                    <input type="text" id="phone" name="phone" th:field="*{phone}" required placeholder="Digite seu telefone">
                 </div>
                 <button type="submit" class="register-btn">Cadastrar</button>
             </form>

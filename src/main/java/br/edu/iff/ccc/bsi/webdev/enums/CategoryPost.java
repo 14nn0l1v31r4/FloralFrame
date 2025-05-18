@@ -1,5 +1,7 @@
 package br.edu.iff.ccc.bsi.webdev.enums;
 
+import br.edu.iff.ccc.bsi.webdev.entities.Community;
+
 public enum CategoryPost { 
 	ORNAMENTAL(1, "Planta usada para fins decorativos."),
     FRUTIFERA(2, "Planta que produz frutos comestíveis."),
@@ -37,5 +39,11 @@ public enum CategoryPost {
         }
         throw new IllegalArgumentException("Código inválido: " + codigo);
     }
+    
+ // Community → CategoryPost utilitário se quiser reaproveitar
+    public CategoryPost toCategory(Community c) {
+        return CategoryPost.porCodigo(c.getId().intValue());
+    }
+
 
 }

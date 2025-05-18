@@ -3,6 +3,8 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +16,7 @@ public class Community implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
@@ -26,11 +29,13 @@ public class Community implements Serializable {
 	
 	@Column
 	private int membersQuantity;
-
+	
 	public Community(String name, String description, int membersQuantity) {
 		this.name = name;
 		this.description = description;
 		this.membersQuantity = membersQuantity;
+	}
+	public Community() {
 	}
 
 	public String getName() {
@@ -55,6 +60,12 @@ public class Community implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public int getMembersQuantity() {
+		return membersQuantity;
+	}
+	public void setMembersQuantity(int membersQuantity) {
+		this.membersQuantity = membersQuantity;
 	}
 	
 	

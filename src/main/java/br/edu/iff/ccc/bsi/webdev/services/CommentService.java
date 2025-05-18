@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.iff.ccc.bsi.webdev.entities.Comment;
+import br.edu.iff.ccc.bsi.webdev.entities.Post;
+import br.edu.iff.ccc.bsi.webdev.entities.UserComum;
 import br.edu.iff.ccc.bsi.webdev.exception.CommentNotFoundException;
 import br.edu.iff.ccc.bsi.webdev.repository.CommentRepository;
 
@@ -24,8 +24,8 @@ public class CommentService {
     }
 
     // Método para criar um novo comentário
-    public Comment createComment(String content, boolean like, LocalDate createdAt) {
-        Comment comment = new Comment(like, createdAt);
+    public Comment createComment(String content, boolean like, LocalDate createdAt , Post post, UserComum author) {
+        Comment comment = new Comment(author, like, createdAt, content, post);
         comment.setContent(content);
         return commentRepo.save(comment);
     }
@@ -58,4 +58,10 @@ public class CommentService {
         }
         commentRepo.deleteById(id);
     }
+    
+    public List<Comment> findByPost(Post post) {
+        return commentRepo.findByPost(post);
+    }
+    
+    
 }

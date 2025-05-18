@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@RestController
+@RestController	
 @RequestMapping("api/v1/user")
 @Tag(name = "Users", description = "API para gerenciamento de usuários comuns")
 public class UserComumController {
@@ -41,7 +41,7 @@ public class UserComumController {
     @PostMapping()
     @Operation(summary = "Criar um novo usuário")
     @ApiResponse(responseCode = "200", description = "Usuário criado com sucesso")
-    public EntityModel<UserComum> createUser( @RequestBody UserComum user) {
+    public EntityModel<UserComum> createUser(@Valid @RequestBody UserComum user) {
         UserComum createdUser = userComumService.save(user);
         return userDTO.toModel(createdUser);
     }
@@ -66,7 +66,7 @@ public class UserComumController {
         return CollectionModel.of(users, linkTo(methodOn(UserComumController.class).getAllUsers()).withSelfRel());
     }
     
-    @GetMapping()
+    @GetMapping("all")
     @Operation(summary = "Listar todos os usuários")
     public CollectionModel<EntityModel<UserComum>> getAllUsers() {
         List<EntityModel<UserComum>> users = userComumService.findAll().stream()
